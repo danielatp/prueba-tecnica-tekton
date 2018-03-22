@@ -6,17 +6,16 @@ const path = require('path');
 const PORT = 3000;
 const app = express();
 
+const apiRouter = require('./api')
+
 //.use for all methods, like middleware
 app.use(volleyball)
 app.use(express.static(path.join(__dirname, '/public')))
-
-app.get('/', (req, res) => {
-  res.send('hola!')
-})
+app.use('/api', apiRouter)
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`)
-  db.sync({force:true})
+  db.sync({force:false})
   .then( () => {
     console.log('db sync')
   })
