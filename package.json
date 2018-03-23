@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server/index.js"
+    "start": "webpack -w & nodemon server/index.js"
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,6 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "nodemon": "^1.17.2",
-    "webpack": "^4.1.1"
+    "webpack": "^2.2.1"
   }
 }

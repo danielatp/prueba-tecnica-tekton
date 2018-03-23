@@ -1,6 +1,6 @@
 const express = require('express');
 const volleyball = require('volleyball');
-const db = require('./db/index');
+const db = require('./db');
 const path = require('path');
 
 const PORT = 3000;
@@ -8,10 +8,19 @@ const app = express();
 
 const apiRouter = require('./api')
 
-//.use for all methods, like middleware
 app.use(volleyball)
-app.use(express.static(path.join(__dirname, '/public')))
+app.use(express.static(path.join(__dirname, '..', '/public')))
 app.use('/api', apiRouter)
+
+app.use((err, req, res, next) => {
+  console.error('problem here!')
+  console.error(err)
+  res.status(err.status || 500).send(err.message)
+})
+
+app.use('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'public/index.html'))
+})
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`)
