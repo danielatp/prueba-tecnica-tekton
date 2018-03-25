@@ -14,6 +14,10 @@ const Item = db.define('item', {
   image: {
     type: Sequelize.STRING,
     // defaultValue:
+  },
+  category: {
+    type: Sequelize.STRING,
+    allowNull: false
   }
 })
 

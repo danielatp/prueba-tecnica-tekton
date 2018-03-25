@@ -2719,7 +2719,6 @@ var Main = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      console.log('THIS.PROPS: ', this.props);
       return _react2.default.createElement(
         'ul',
         null,
