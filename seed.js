@@ -1,5 +1,5 @@
 const Promise = require('bluebird');
-const { Order, Staff, Item } = require('./server/db/models');
+const { Staff, Item } = require('./server/db/models');
 const db = require('./server/db');
 
 const ITEMS = [
@@ -32,18 +32,12 @@ const STAFF = [
   {name: 'Lito Rodriguez', email: 'lito@tektonpizza.com', password: 123, isChef: true},
 ];
 
-function addItems(items){
-  const itemList = items.map( item => Item.create(item))
-  return itemList
+function addRow(dataArr, table){
+  return dataArr.map( rowData => table.create(rowData))
 }
 
-function addStaff(staff){
-  const staffList = staff.map( worker => Staff.create(worker));
-  return staffList
-}
-
-function seed(items, staff){
-  return Promise.all([addItems(items), addStaff(staff)])
+function seed(itemsArr, staffArr){
+  return Promise.all([addRow(itemsArr, Item), addRow(staffArr, Staff)])
 }
 
 console.log('Syncing database');
