@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom'
 
 const Navbar = (props) => {
-  console.log('NAVBAR-PROPS', props)
   return(
-
     <div>
       {props.user.isCashier ?
         <Link to='/nueva-orden'>
@@ -14,7 +12,6 @@ const Navbar = (props) => {
       :
         null
       }
-
     </div>
   )
 }

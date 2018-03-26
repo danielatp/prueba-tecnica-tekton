@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { fetchItems } from '../store/items';
+import { addToOrder } from '../store/order'
 
 class Main extends Component {
   constructor(props){
@@ -20,8 +21,13 @@ class Main extends Component {
     }
   }
 
+  addToOrder(event){
+    const itemId = event.target.parentNode.id
+    console.log('KEY', itemId)
+    // this.props.addItemToOrder(itemId)
+  }
+
   render(){
-    // console.log('ITEMS.PROPS', this.props)
     return(
       <ul id='all-items-ul'>
         {this.props.categories.map(category => {
@@ -33,9 +39,9 @@ class Main extends Component {
                   .filter(item => item.category === category)
                   .map(item => {
                     return(
-                      <li key={item.id}>
+                      <li id={item.id} key={item.id}>
                         {`s/. ${item.price} - ${item.name}`}
-                        <button>+</button>
+                        <button onClick={this.addToOrder}>+</button>
                       </li>
                     )
                   })}
@@ -61,7 +67,8 @@ const mapStateToProps = (storeState) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loadItems: () => dispatch(fetchItems())
+    loadItems: () => dispatch(fetchItems()),
+    addItemToOrder: (itemId) => dispatch(addToOrder(itemId))
   }
 }
 

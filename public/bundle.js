@@ -4472,11 +4472,16 @@ var _user = __webpack_require__(18);
 
 var _user2 = _interopRequireDefault(_user);
 
+var _order = __webpack_require__(148);
+
+var _order2 = _interopRequireDefault(_order);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mainReducer = (0, _redux.combineReducers)({
   items: _items2.default,
-  user: _user2.default
+  user: _user2.default,
+  order: _order2.default
 });
 
 var middleware = (0, _reduxDevtoolsExtension.composeWithDevTools)((0, _redux.applyMiddleware)(_reduxThunk2.default, (0, _reduxLogger.createLogger)()));
@@ -5407,6 +5412,8 @@ var _reactRedux = __webpack_require__(7);
 
 var _items = __webpack_require__(17);
 
+var _order = __webpack_require__(148);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -5440,11 +5447,17 @@ var Main = function (_Component) {
       }
     }
   }, {
+    key: 'addToOrder',
+    value: function addToOrder(event) {
+      var itemId = event.target.parentNode.id;
+      console.log('KEY', itemId);
+      // this.props.addItemToOrder(itemId)
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
 
-      // console.log('ITEMS.PROPS', this.props)
       return _react2.default.createElement(
         'ul',
         { id: 'all-items-ul' },
@@ -5465,11 +5478,11 @@ var Main = function (_Component) {
               }).map(function (item) {
                 return _react2.default.createElement(
                   'li',
-                  { key: item.id },
+                  { id: item.id, key: item.id },
                   's/. ' + item.price + ' - ' + item.name,
                   _react2.default.createElement(
                     'button',
-                    null,
+                    { onClick: _this2.addToOrder },
                     '+'
                   )
                 );
@@ -5501,6 +5514,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     loadItems: function loadItems() {
       return dispatch((0, _items.fetchItems)());
+    },
+    addItemToOrder: function addItemToOrder(itemId) {
+      return dispatch((0, _order.addToOrder)(itemId));
     }
   };
 };
@@ -5635,7 +5651,6 @@ var _reactRouterDom = __webpack_require__(15);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Navbar = function Navbar(props) {
-  console.log('NAVBAR-PROPS', props);
   return _react2.default.createElement(
     'div',
     null,
@@ -27718,6 +27733,86 @@ module.exports = function(originalModule) {
 	return module;
 };
 
+
+/***/ }),
+/* 148 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.addToOrder = exports.fetchOrder = undefined;
+
+exports.default = function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultOrder;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case GET_ORDER:
+      return action.order;
+
+    // case ADD_ITEM:
+    //   return 'hola'
+
+    case DELETE_ITEM:
+      return state.items.filter(function (item) {
+        return item.id !== action.itemId;
+      });
+
+    default:
+      return state;
+  }
+};
+
+var _axios = __webpack_require__(31);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//INITIAL STATE
+var defaultOrder = {};
+
+//ACTION TYPES
+var GET_ORDER = 'GET_ORDER';
+var ADD_ITEM = 'ADD_ITEM';
+var DELETE_ITEM = 'DELETE_ITEM';
+
+//ACTION CREATORS
+var getOrder = function getOrder(order) {
+  return { type: GET_ORDER, order: order };
+};
+
+var addItem = function addItem(order) {
+  return { type: ADD_ITEM, order: order };
+};
+
+var deleteItem = function deleteItem(itemId) {
+  return { type: DELETE_ITEM, itemId: itemId };
+};
+
+//THUNK CREATORS
+var fetchOrder = exports.fetchOrder = function fetchOrder(orderId) {
+  return function (dispatch) {
+    _axios2.default.get('/api/orders/' + orderId).then(function (res) {
+      return res.data;
+    }).then(function (order) {
+      dispatch(getOrder(order));
+    }).catch(function (err) {
+      return console.log(err);
+    });
+  };
+};
+
+var addToOrder = exports.addToOrder = function addToOrder() {}
+//AGREGAR ORDER.ID A ITEM SELECCIONADO
+
+
+//REDUCER
+;
 
 /***/ })
 /******/ ]);
