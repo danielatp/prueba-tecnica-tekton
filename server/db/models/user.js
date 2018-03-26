@@ -53,10 +53,9 @@ User.encryptPassword = function (plainText, salt) {
 }
 
 //HOOKS
-const setSaltAndValidateTekton = user => {
+const setSaltAndValidateEmail = user => {
   if(!user.email.includes('tekton')){
     throw new Error(`EMAIL MUST CONTAIN WORD 'TEKTON'!`)
-    return sequelize.Promise.reject(`EMAIL MUST CONTAIN WORD 'TEKTON'!!`)
   }
   if (user.changed('password')){
     user.salt = User.generateSalt()
@@ -64,7 +63,7 @@ const setSaltAndValidateTekton = user => {
   }
 }
 
-User.beforeCreate(setSaltAndValidateTekton)
-User.beforeUpdate(setSaltAndValidateTekton)
+User.beforeCreate(setSaltAndValidateEmail)
+User.beforeUpdate(setSaltAndValidateEmail)
 
 module.exports = User;

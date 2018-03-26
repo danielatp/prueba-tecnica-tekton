@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Login from './Login';
 import Navbar from './Navbar';
-import { me } from '../store/user';
+import { me, logout } from '../store/user';
 
 class Home extends Component{
   componentDidMount(){
@@ -18,7 +18,7 @@ class Home extends Component{
           <div id='logout-display'>
             <div>
               <h3>{`Hola ${this.props.user.name.split(' ')[0]}!!`}</h3>
-              <button id='logout-btn'>Logout</button>
+              <button id='logout-btn' onClick={this.props.logout}>Logout</button>
             </div>
             <Navbar user={this.props.user}/>
           </div>
@@ -38,7 +38,8 @@ const mapStateToProps = (storeState) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loadUser: () => dispatch(me())
+    loadUser: () => dispatch(me()),
+    logout: () => dispatch(logout())
   }
 }
 

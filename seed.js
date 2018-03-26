@@ -29,7 +29,7 @@ const USERS = [
   {name: 'Riley Blue', email: 'riley@tektonpizza.com', password: '123', isCashier: true},
   {name: 'Wolfgang Bogdanow', email: 'wolfgang@tektonpizza.com', password: '123', isAdmin: true, isChef: true},
   {name: 'Amanita Caplan', email: 'amanita@tektonpizza.com', password: '123', isCashier: true},
-  {name: 'Lito Rodriguez', email: 'lito@pizza.com', password: '123', isChef: true},
+  {name: 'Lito Rodriguez', email: 'lito@tektonpizza.com', password: '123', isChef: true},
 ];
 
 function addRow(dataArr, table){
@@ -43,18 +43,18 @@ function seed(itemsArr, usersArr){
 console.log('Syncing database');
 
 db.sync({force: true})
-  .then( () => {
+  .then(() => {
     console.log('Seeding database')
     return seed(ITEMS, USERS)
   })
-  .then( () => {
+  .then(() => {
     console.log('Seeding successful')
   })
-  .catch( err => {
+  .catch(err => {
     console.error('Error while seeding')
     console.error(err.stack)
   })
-  .finally( () => {
+  .finally(() => {
     db.close();
     return null;
   })
