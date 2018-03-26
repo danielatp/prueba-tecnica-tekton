@@ -11,10 +11,10 @@ const Item = db.define('item', {
     type: Sequelize.FLOAT,
     allowNull: false
   },
-  image: {
-    type: Sequelize.STRING,
+  // image: {
+  //   type: Sequelize.STRING,
     // defaultValue:
-  },
+  // },
   category: {
     type: Sequelize.STRING,
     allowNull: false

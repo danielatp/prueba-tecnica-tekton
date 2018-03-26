@@ -11,7 +11,10 @@ const User = db.define('user', {
   email:{
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      isEmail: {msg: 'email inválido'}
+    }
   },
   password: {
     type: Sequelize.STRING
@@ -50,14 +53,18 @@ User.encryptPassword = function (plainText, salt) {
 }
 
 //HOOKS
-const setSaltAndPassword = user => {
-  if (user.changed('password')) {
+const setSaltAndValidateTekton = user => {
+  if(!user.email.includes('tekton')){
+    throw new Error(`EMAIL MUST CONTAIN WORD 'TEKTON'!`)
+    return sequelize.Promise.reject(`EMAIL MUST CONTAIN WORD 'TEKTON'!!`)
+  }
+  if (user.changed('password')){
     user.salt = User.generateSalt()
     user.password = User.encryptPassword(user.password, user.salt)
   }
 }
 
-User.beforeCreate(setSaltAndPassword)
-User.beforeUpdate(setSaltAndPassword)
+User.beforeCreate(setSaltAndValidateTekton)
+User.beforeUpdate(setSaltAndValidateTekton)
 
 module.exports = User;

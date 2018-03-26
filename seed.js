@@ -29,7 +29,7 @@ const USERS = [
   {name: 'Riley Blue', email: 'riley@tektonpizza.com', password: '123', isCashier: true},
   {name: 'Wolfgang Bogdanow', email: 'wolfgang@tektonpizza.com', password: '123', isAdmin: true, isChef: true},
   {name: 'Amanita Caplan', email: 'amanita@tektonpizza.com', password: '123', isCashier: true},
-  {name: 'Lito Rodriguez', email: 'lito@tektonpizza.com', password: '123', isChef: true},
+  {name: 'Lito Rodriguez', email: 'lito@pizza.com', password: '123', isChef: true},
 ];
 
 function addRow(dataArr, table){
