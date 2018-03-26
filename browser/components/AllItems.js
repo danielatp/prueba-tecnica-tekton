@@ -33,15 +33,25 @@ class Main extends Component {
         {this.props.categories.map(category => {
           return(
             <li key={category}>
-              <button onClick={this.toggleItems}>{category}</button>
-              <ul id={category} style={{display: 'none'}}>
+              <button
+                onClick={this.toggleItems}
+                className='category-btn'
+                >
+                {category}
+              </button>
+              <ul id={category} className='category-ul' style={{display: 'none'}}>
                 {this.props.items
                   .filter(item => item.category === category)
                   .map(item => {
                     return(
                       <li id={item.id} key={item.id}>
                         {`s/. ${item.price} - ${item.name}`}
-                        <button onClick={this.addToOrder}>+</button>
+                        <button
+                          onClick={this.addToOrder}
+                          className='add-btn'
+                          >
+                        +
+                        </button>
                       </li>
                     )
                   })}

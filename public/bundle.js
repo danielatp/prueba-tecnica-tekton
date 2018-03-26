@@ -5547,12 +5547,15 @@ var Main = function (_Component) {
             { key: category },
             _react2.default.createElement(
               'button',
-              { onClick: _this2.toggleItems },
+              {
+                onClick: _this2.toggleItems,
+                className: 'category-btn'
+              },
               category
             ),
             _react2.default.createElement(
               'ul',
-              { id: category, style: { display: 'none' } },
+              { id: category, className: 'category-ul', style: { display: 'none' } },
               _this2.props.items.filter(function (item) {
                 return item.category === category;
               }).map(function (item) {
@@ -5562,7 +5565,10 @@ var Main = function (_Component) {
                   's/. ' + item.price + ' - ' + item.name,
                   _react2.default.createElement(
                     'button',
-                    { onClick: _this2.addToOrder },
+                    {
+                      onClick: _this2.addToOrder,
+                      className: 'add-btn'
+                    },
                     '+'
                   )
                 );

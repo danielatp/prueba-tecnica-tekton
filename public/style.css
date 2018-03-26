@@ -50,6 +50,7 @@ input:focus {
   border-bottom: 2px solid #d22828;
 }
 .form-div button, button{
+  color: #fefcf1;
   width: 60%;
   padding: .2em;
   font-family: 'Walter Turncoat', cursive;
@@ -75,7 +76,21 @@ button:focus {
   width: 10%;
   margin: 0 2em;
 }
-Navbar{
-  border: 2px solid blue;
+.add-btn{
+  width: 40px;
+  margin-left: 1em;
+  color: #fefcf1;
+  float: right;
 }
-
+.category-btn{
+  margin: .5em 5% 1em 5%;
+  width: 90%;
+  color: #fefcf1;
+}
+.category-ul li{
+  margin-left: 20%;
+  border-bottom: 1px solid #d22828;
+  width: 60%;
+  padding: .2em;
+  list-style: none;
+}
