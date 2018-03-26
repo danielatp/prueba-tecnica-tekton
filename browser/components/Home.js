@@ -15,9 +15,11 @@ class Home extends Component{
         <h1>Tekton Pizza</h1>
         {this.props.user && this.props.user.id
         ?
-          <div>
-            <h3>{`Hola ${this.props.user.name.split(' ')[0]}`}</h3>
-            <button>Logout</button>
+          <div id='logout-display'>
+            <div>
+              <h3>{`Hola ${this.props.user.name.split(' ')[0]}!!`}</h3>
+              <button id='logout-btn'>Logout</button>
+            </div>
             <Navbar user={this.props.user}/>
           </div>
         :

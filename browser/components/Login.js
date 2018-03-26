@@ -7,15 +7,15 @@ const Login = (props) => {
     <div>
       <h2>Let's get to work!</h2>
       <form onSubmit={props.handleSubmit}>
-        <div>
+        <div className='form-div'>
           <label htmlFor="email"><small>Email</small></label>
           <input name="email" type="text" />
         </div>
-        <div>
+        <div className='form-div'>
           <label htmlFor="password"><small>Password</small></label>
           <input name="password" type="password" />
         </div>
-        <div>
+        <div className='form-div'>
           <button type="submit">Login</button>
         </div>
       </form>
