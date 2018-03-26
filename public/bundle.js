@@ -5628,6 +5628,8 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(7);
 
+var _reactRouterDom = __webpack_require__(15);
+
 var _Login = __webpack_require__(37);
 
 var _Login2 = _interopRequireDefault(_Login);
@@ -5649,16 +5651,25 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Home = function (_Component) {
   _inherits(Home, _Component);
 
-  function Home() {
+  function Home(props) {
     _classCallCheck(this, Home);
 
-    return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
+
+    _this.handleLogout = _this.handleLogout.bind(_this);
+    return _this;
   }
 
   _createClass(Home, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.props.loadUser();
+    }
+  }, {
+    key: 'handleLogout',
+    value: function handleLogout() {
+      this.props.logout();
+      this.props.history.push('/');
     }
   }, {
     key: 'render',
@@ -5684,7 +5695,7 @@ var Home = function (_Component) {
             ),
             _react2.default.createElement(
               'button',
-              { id: 'logout-btn', onClick: this.props.logout },
+              { id: 'logout-btn', onClick: this.handleLogout },
               'Logout'
             )
           ),
@@ -5714,7 +5725,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   };
 };
 
-var HomeContainer = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Home);
+var HomeContainer = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Home));
 
 exports.default = HomeContainer;
 

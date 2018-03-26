@@ -1,12 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import Login from './Login';
 import Navbar from './Navbar';
 import { me, logout } from '../store/user';
 
 class Home extends Component{
+  constructor(props){
+    super(props)
+    this.handleLogout = this.handleLogout.bind(this)
+  }
   componentDidMount(){
     this.props.loadUser();
+  }
+
+  handleLogout(){
+    this.props.logout()
+    this.props.history.push('/')
+
   }
 
   render(){
@@ -18,7 +29,7 @@ class Home extends Component{
           <div id='logout-display'>
             <div>
               <h3>{`Hola ${this.props.user.name.split(' ')[0]}!!`}</h3>
-              <button id='logout-btn' onClick={this.props.logout}>Logout</button>
+              <button id='logout-btn' onClick={this.handleLogout}>Logout</button>
             </div>
             <Navbar user={this.props.user}/>
           </div>
@@ -43,6 +54,6 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-const HomeContainer = connect(mapStateToProps, mapDispatchToProps)(Home);
+const HomeContainer = withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));
 
 export default HomeContainer;
