@@ -5418,10 +5418,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Main = function (_Component) {
   _inherits(Main, _Component);
 
-  function Main() {
+  function Main(props) {
     _classCallCheck(this, Main);
 
-    return _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, props));
   }
 
   _createClass(Main, [{
@@ -5430,16 +5430,51 @@ var Main = function (_Component) {
       this.props.loadItems();
     }
   }, {
+    key: 'toggleItems',
+    value: function toggleItems(event) {
+      var targetUl = document.getElementById(event.target.innerHTML);
+      if (targetUl.style.display === 'none') {
+        targetUl.style.display = 'block';
+      } else {
+        targetUl.style.display = 'none';
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
+      // console.log('ITEMS.PROPS', this.props)
       return _react2.default.createElement(
         'ul',
-        null,
-        this.props.items.map(function (item) {
+        { id: 'all-items-ul' },
+        this.props.categories.map(function (category) {
           return _react2.default.createElement(
             'li',
-            { key: item.id },
-            item.name
+            { key: category },
+            _react2.default.createElement(
+              'button',
+              { onClick: _this2.toggleItems },
+              category
+            ),
+            _react2.default.createElement(
+              'ul',
+              { id: category, style: { display: 'none' } },
+              _this2.props.items.filter(function (item) {
+                return item.category === category;
+              }).map(function (item) {
+                return _react2.default.createElement(
+                  'li',
+                  { key: item.id },
+                  's/. ' + item.price + ' - ' + item.name,
+                  _react2.default.createElement(
+                    'button',
+                    null,
+                    '+'
+                  )
+                );
+              })
+            )
           );
         })
       );
@@ -5449,9 +5484,16 @@ var Main = function (_Component) {
   return Main;
 }(_react.Component);
 
+var uniq = function uniq(arr) {
+  return Array.from(new Set(arr));
+};
+
 var mapStateToProps = function mapStateToProps(storeState) {
   return {
-    items: storeState.items
+    items: storeState.items,
+    categories: uniq(storeState.items.map(function (item) {
+      return item.category;
+    }))
   };
 };
 

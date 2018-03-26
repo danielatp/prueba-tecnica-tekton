@@ -49,7 +49,7 @@ input:focus {
   box-shadow: none;
   border-bottom: 2px solid #d22828;
 }
-button{
+.form-div button{
   width: 60%;
   padding: .2em;
   font-family: 'Walter Turncoat', cursive;
@@ -78,3 +78,6 @@ button:focus {
 Navbar{
   border: 2px solid blue;
 }
+/* #all-items-ul > ul{
+  display: none;
+} */

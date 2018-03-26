@@ -3,17 +3,43 @@ import {connect} from 'react-redux';
 import { fetchItems } from '../store/items';
 
 class Main extends Component {
+  constructor(props){
+    super(props)
+  }
+
   componentDidMount(){
     this.props.loadItems();
   }
 
+  toggleItems(event){
+    let targetUl = document.getElementById(event.target.innerHTML)
+    if(targetUl.style.display === 'none'){
+      targetUl.style.display = 'block'
+    }else{
+      targetUl.style.display = 'none'
+    }
+  }
+
   render(){
+    // console.log('ITEMS.PROPS', this.props)
     return(
-      <ul>
-        {this.props.items.map(item => {
+      <ul id='all-items-ul'>
+        {this.props.categories.map(category => {
           return(
-            <li key = {item.id}>
-              {item.name}
+            <li key={category}>
+              <button onClick={this.toggleItems}>{category}</button>
+              <ul id={category} style={{display: 'none'}}>
+                {this.props.items
+                  .filter(item => item.category === category)
+                  .map(item => {
+                    return(
+                      <li key={item.id}>
+                        {`s/. ${item.price} - ${item.name}`}
+                        <button>+</button>
+                      </li>
+                    )
+                  })}
+              </ul>
             </li>
           )
         })}
@@ -22,9 +48,14 @@ class Main extends Component {
   }
 }
 
+const uniq = (arr) => {
+  return Array.from(new Set(arr));
+}
+
 const mapStateToProps = (storeState) => {
   return {
-    items: storeState.items
+    items: storeState.items,
+    categories: uniq(storeState.items.map(item => item.category))
   }
 }
 
