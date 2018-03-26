@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-// router.use('/staff', require('./staff'))
+// router.use('/user', require('./user'))
 router.use('/orders', require('./orders'))
 router.use('/items', require('./items'))
 

@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 const Order = require('./order');
-const Staff = require('./staff');
+const User = require('./user');
 const Item = require('./item');
 
 //associations
@@ -10,6 +10,6 @@ Item.belongsToMany(Order, {through: 'OrderItem'});
 
 module.exports = {
   Order,
-  Staff,
+  User,
   Item
 };

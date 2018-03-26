@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+//INITIAL STATE
+const defaultItems = [];
+
 //ACTION TYPES
 const GET_ITEMS = 'GET_ITEMS';
 
@@ -17,7 +20,7 @@ export const fetchItems = () => {
 }
 
 //REDUCER
-export default function (state = [], action){
+export default function (state = defaultItems, action){
    switch (action.type){
     case GET_ITEMS:
       return action.items;

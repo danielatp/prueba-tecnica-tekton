@@ -1,5 +1,5 @@
 const Promise = require('bluebird');
-const { Staff, Item } = require('./server/db/models');
+const { User, Item } = require('./server/db/models');
 const db = require('./server/db');
 
 const ITEMS = [
@@ -23,21 +23,21 @@ const ITEMS = [
   {name: 'pan al ajo especial', price: 11.00, category: 'adicional'},
 ];
 
-const STAFF = [
-  {name: 'Sun Bak', email: 'sun@tektonpizza.com', password: 123, isAdmin: true},
-  {name: 'Nomi Marks', email: 'nomi@tektonpizza.com', password: 123, isChef: true},
-  {name: 'Riley Blue', email: 'riley@tektonpizza.com', password: 123, isCashier: true},
-  {name: 'Wolfgang Bogdanow', email: 'wolfgang@tektonpizza.com', password: 123, isAdmin: true, isChef: true},
-  {name: 'Amanita Caplan', email: 'amanita@tektonpizza.com', password: 123, isCashier: true},
-  {name: 'Lito Rodriguez', email: 'lito@tektonpizza.com', password: 123, isChef: true},
+const USERS = [
+  {name: 'Sun Bak', email: 'sun@tektonpizza.com', password: '123', isAdmin: true},
+  {name: 'Nomi Marks', email: 'nomi@tektonpizza.com', password: '123', isChef: true},
+  {name: 'Riley Blue', email: 'riley@tektonpizza.com', password: '123', isCashier: true},
+  {name: 'Wolfgang Bogdanow', email: 'wolfgang@tektonpizza.com', password: '123', isAdmin: true, isChef: true},
+  {name: 'Amanita Caplan', email: 'amanita@tektonpizza.com', password: '123', isCashier: true},
+  {name: 'Lito Rodriguez', email: 'lito@tektonpizza.com', password: '123', isChef: true},
 ];
 
 function addRow(dataArr, table){
-  return dataArr.map( rowData => table.create(rowData))
+  return dataArr.map(rowData => table.create(rowData))
 }
 
-function seed(itemsArr, staffArr){
-  return Promise.all([addRow(itemsArr, Item), addRow(staffArr, Staff)])
+function seed(itemsArr, usersArr){
+  return Promise.all([addRow(itemsArr, Item), addRow(usersArr, User)])
 }
 
 console.log('Syncing database');
@@ -45,7 +45,7 @@ console.log('Syncing database');
 db.sync({force: true})
   .then( () => {
     console.log('Seeding database')
-    return seed(ITEMS, STAFF)
+    return seed(ITEMS, USERS)
   })
   .then( () => {
     console.log('Seeding successful')
