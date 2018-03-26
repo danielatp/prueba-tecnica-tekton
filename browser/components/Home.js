@@ -1,25 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Login from './Login';
+import Navbar from './Navbar';
 import { me } from '../store/user';
 
 class Home extends Component{
-
   componentDidMount(){
     this.props.loadUser();
   }
 
   render(){
-    console.log('HOME-PROPS', this.props)
     return(
-      <div>
+      <div id='home'>
         <h1>Tekton Pizza</h1>
-        {this.props.user && this.props.user.id ?
-          <h3>{`Hola ${this.props.user.name}`}</h3>
-          :
+        {this.props.user && this.props.user.id
+        ?
+          <div>
+            <h3>{`Hola ${this.props.user.name.split(' ')[0]}`}</h3>
+            <button>Logout</button>
+            <Navbar user={this.props.user}/>
+          </div>
+        :
           <Login />
         }
-
       </div>
     )
   }
@@ -27,7 +30,7 @@ class Home extends Component{
 
 const mapStateToProps = (storeState) => {
   return {
-    user: storeState.user
+    user: storeState.user,
   }
 }
 

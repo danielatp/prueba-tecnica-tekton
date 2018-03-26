@@ -15,16 +15,16 @@ class Main extends Component {
 
   componentDidMount(){
     this.props.loadItems();
-    // this.props.loadUser();
   }
 
   render(){
-    console.log('MAIN-PROPS', this.props)
     return(
-        <Switch>
-          <Route exact path='/' component={Home} />
-          <Route exact path='items' component={AllItems} />
-        </Switch>
+        <div>
+          <Home />
+          <Switch>
+            <Route exact path='/nueva-orden' component={AllItems} />
+          </Switch>
+        </div>
     )
   }
 }
@@ -32,14 +32,12 @@ class Main extends Component {
 const mapStateToProps = (storeState) => {
   return {
     items: storeState.items,
-    // user: storeState.user
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     loadItems: () => dispatch(fetchItems()),
-    // loadUser: () => dispatch(me())
   }
 }
 

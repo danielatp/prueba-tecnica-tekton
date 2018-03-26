@@ -1,0 +1,20 @@
+/* http://www.color-hex.com/color-palette/33324 */
+
+*{
+  margin:0;
+  padding:0;
+}
+body{
+  font-family: 'Walter Turncoat', cursive;
+  background-color: #f5f9e7;
+  color: #180314
+}
+#home{
+  border: 1px solid black;
+}
+h1{
+  text-align: center;
+  font-size: 5em;
+  font-family: 'Nanum Brush Script', cursive;
+  text-shadow: .04em -.04em #d22828;
+}

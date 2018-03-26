@@ -8,10 +8,7 @@ const GET_USER = 'GET_USER';
 const REMOVE_USER = 'REMOVE_USER';
 
 //ACTION CREATORS
-const getUser = (user) => {
-  console.log('ACTION-USER', user)
-  return {type: GET_USER, user}
-}
+const getUser = (user) => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
 
 //THUNK CREATORS
@@ -26,12 +23,8 @@ export const me = () =>
 export const login = (email, password) => {
   return function(dispatch){
     axios.post('/auth/login', {email, password})
-    .then(res => {
-      console.log('RES>DATA', res, 'fin')
-      return res.data
-    })
+    .then(res => res.data)
     .then(user => {
-      console.log('USER THUNK', user)
       dispatch(getUser(user))})
     .catch(err => console.log(err))
   }

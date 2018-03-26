@@ -1470,7 +1470,6 @@ var REMOVE_USER = 'REMOVE_USER';
 
 //ACTION CREATORS
 var getUser = function getUser(user) {
-  console.log('ACTION-USER', user);
   return { type: GET_USER, user: user };
 };
 var removeUser = function removeUser() {
@@ -1491,10 +1490,8 @@ var me = exports.me = function me() {
 var login = exports.login = function login(email, password) {
   return function (dispatch) {
     _axios2.default.post('/auth/login', { email: email, password: password }).then(function (res) {
-      console.log('RES>DATA', res, 'fin');
       return res.data;
     }).then(function (user) {
-      console.log('USER THUNK', user);
       dispatch(getUser(user));
     }).catch(function (err) {
       return console.log(err);
@@ -4408,17 +4405,19 @@ var Main = function (_Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.props.loadItems();
-      // this.props.loadUser();
     }
   }, {
     key: 'render',
     value: function render() {
-      console.log('MAIN-PROPS', this.props);
       return _react2.default.createElement(
-        _reactRouterDom.Switch,
+        'div',
         null,
-        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Home2.default }),
-        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: 'items', component: _AllItems2.default })
+        _react2.default.createElement(_Home2.default, null),
+        _react2.default.createElement(
+          _reactRouterDom.Switch,
+          null,
+          _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/nueva-orden', component: _AllItems2.default })
+        )
       );
     }
   }]);
@@ -4429,7 +4428,6 @@ var Main = function (_Component) {
 var mapStateToProps = function mapStateToProps(storeState) {
   return {
     items: storeState.items
-    // user: storeState.user
   };
 };
 
@@ -4438,7 +4436,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     loadItems: function loadItems() {
       return dispatch((0, _items.fetchItems)());
     }
-    // loadUser: () => dispatch(me())
   };
 };
 
@@ -5491,6 +5488,10 @@ var _Login = __webpack_require__(37);
 
 var _Login2 = _interopRequireDefault(_Login);
 
+var _Navbar = __webpack_require__(147);
+
+var _Navbar2 = _interopRequireDefault(_Navbar);
+
 var _user = __webpack_require__(17);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -5518,19 +5519,28 @@ var Home = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      console.log('HOME-PROPS', this.props);
       return _react2.default.createElement(
         'div',
-        null,
+        { id: 'home' },
         _react2.default.createElement(
           'h1',
           null,
           'Tekton Pizza'
         ),
         this.props.user && this.props.user.id ? _react2.default.createElement(
-          'h3',
+          'div',
           null,
-          'Hola ' + this.props.user.name
+          _react2.default.createElement(
+            'h3',
+            null,
+            'Hola ' + this.props.user.name.split(' ')[0]
+          ),
+          _react2.default.createElement(
+            'button',
+            null,
+            'Logout'
+          ),
+          _react2.default.createElement(_Navbar2.default, { user: this.props.user })
         ) : _react2.default.createElement(_Login2.default, null)
       );
     }
@@ -27616,6 +27626,52 @@ module.exports = function(originalModule) {
 	return module;
 };
 
+
+/***/ }),
+/* 147 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(7);
+
+var _reactRouterDom = __webpack_require__(30);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Navbar = function Navbar(props) {
+  console.log('NAVBAR-PROPS', props);
+  return _react2.default.createElement(
+    'div',
+    null,
+    props.user.isCashier ? _react2.default.createElement(
+      _reactRouterDom.Link,
+      { to: '/nueva-orden' },
+      'Nueva Orden'
+    ) : null
+  );
+};
+
+// const mapState = (state) => {
+//   return {
+//   }
+// }
+
+// const mapDispatch = (dispatch) => {
+//   return {
+//   }
+// }
+
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(null, null)(Navbar));
 
 /***/ })
 /******/ ]);
